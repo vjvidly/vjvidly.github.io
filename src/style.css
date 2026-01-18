@@ -348,6 +348,8 @@ img.player-art-large[src=""] {
   width: 100%;
 }
 
+/* ... previous styles ... */
+
 .player-title {
   font-size: 1.5rem;
   font-weight: 500;
@@ -357,15 +359,15 @@ img.player-art-large[src=""] {
   text-overflow: ellipsis;
   letter-spacing: 0.02em;
   /* Request: Blur text */
-  filter: blur(0.5px);
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  filter: blur(0.6px);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 .title-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.8rem;
   margin-bottom: 0.5rem;
   width: 100%;
 }
@@ -375,9 +377,14 @@ img.player-art-large[src=""] {
   align-items: center;
   justify-content: center;
   color: var(--text-secondary);
-  opacity: 0.5;
+  opacity: 0.6;
   transition: all 0.2s;
-  padding: 2px;
+  padding: 4px;
+}
+
+.sc-badge svg {
+  transform: scale(1.3);
+  /* Slightly larger */
 }
 
 .sc-badge:hover {
@@ -389,8 +396,10 @@ img.player-art-large[src=""] {
 .player-artist {
   font-size: 1rem;
   color: var(--text-secondary);
-  filter: blur(0.4px);
+  filter: blur(0.5px);
 }
+
+/* ... progress container ... */
 
 .progress-container {
   width: 100%;
@@ -416,6 +425,7 @@ img.player-art-large[src=""] {
   transition: background 0.15s;
   pointer-events: none;
   min-height: 4px;
+  filter: blur(0.2px);
 }
 
 .waveform-bar.active {
@@ -428,6 +438,8 @@ img.player-art-large[src=""] {
   display: flex;
   align-items: center;
   gap: 2.5rem;
+  margin-top: auto;
+  /* Push to bottom if needed */
 }
 
 .ctrl-btn {
@@ -478,34 +490,48 @@ img.player-art-large[src=""] {
   .player-card {
     position: static;
     flex-direction: row;
+    align-items: center;
     border-radius: 0;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(50px);
-    padding: 1rem 1.5rem;
-    gap: 1.5rem;
+    background: rgba(10, 10, 10, 0.95);
+    /* darker for contrast */
+    backdrop-filter: blur(20px);
+    padding: 0.75rem 1rem;
+    gap: 1rem;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     border-bottom: none;
     border-left: none;
     border-right: none;
-    box-shadow: none;
+    box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
+    height: 80px;
   }
 
   .player-art-large {
-    width: 48px;
-    height: 48px;
+    width: 56px;
+    height: 56px;
     border-radius: 0;
     margin: 0;
   }
 
   .player-info-large {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
     text-align: left;
+    gap: 0.2rem;
     flex: 1;
-    min-width: 0;
+    overflow: hidden;
+  }
+
+  .title-row {
+    justify-content: flex-start;
+    margin: 0;
+    width: auto;
   }
 
   .player-title {
     font-size: 1rem;
-    margin-bottom: 0.2rem;
+    margin: 0;
   }
 
   .player-artist {
@@ -517,17 +543,36 @@ img.player-art-large[src=""] {
   }
 
   .controls-large {
-    gap: 1.5rem;
+    gap: 1rem;
+    margin: 0;
   }
 
   .btn-play-large {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     background: white;
     color: black;
+    box-shadow: none;
+  }
+
+  .btn-play-large svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Hide prev/next if space is tight, or keep small */
+  #btn-prev,
+  #btn-next {
+    display: none;
+    /* Simplify interface on mobile */
   }
 
   .btn-close {
-    display: block !important;
+    display: flex !important;
+    background: none;
+    border: none;
+    color: white;
+    opacity: 0.6;
+    padding: 0.5rem;
   }
 }
