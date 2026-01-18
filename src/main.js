@@ -23,20 +23,15 @@ const progressContainer = document.querySelector('#progress-container');
 // Initialize Grid
 function renderGrid() {
   gridEl.innerHTML = tracks.map((track, index) => `
-    <button class="track-item ${index === currentTrackIndex && isPlaying ? 'playing' : ''}" data-index="${index}">
-      <div class="img-container">
-        <img src="${track.image}" alt="${track.title} cover" class="track-img" />
-      </div>
+    <div class="track-item ${index === currentTrackIndex && isPlaying ? 'playing' : ''}" data-index="${index}">
       <div class="track-meta">
-        <div>
-          <div class="track-title">${track.title}</div>
-          <div class="track-artist">${track.artist}</div>
-        </div>
+        <div class="track-title">${track.title}</div>
+        <div class="track-artist">${track.artist}</div>
         <div class="play-icon">
-          ${index === currentTrackIndex && isPlaying ? '<span style="font-size: 0.8rem">||</span>' : '▶'}
+          ${index === currentTrackIndex && isPlaying ? '||' : '▶'}
         </div>
       </div>
-    </button>
+    </div>
   `).join('');
 
   // Attach events
@@ -44,8 +39,10 @@ function renderGrid() {
     item.addEventListener('click', () => {
       const index = parseInt(item.dataset.index);
       if (currentTrackIndex === index) {
-        if (audio.paused) togglePlay();
+        // Toggle if same track
+        togglePlay();
       } else {
+        // New track
         playTrack(index);
       }
     });
@@ -138,7 +135,8 @@ function closePlayer() {
   audio.pause();
   isPlaying = false;
   currentTrackIndex = -1;
-  playerBar.classList.remove('active');
+  // On desktop, we don't really close it, we just reset it. 
+  // But on mobile we might hide it.
   updateUI();
 }
 
@@ -158,7 +156,15 @@ function updateUI() {
     pTitle.textContent = track.title;
     pArtist.textContent = track.artist;
     pArt.src = track.image;
-    playerBar.classList.add('active'); // Ensure active
+    pArt.style.visibility = 'visible';
+    pArt.style.opacity = '1';
+  } else {
+    // Hide art if no track
+    pArt.removeAttribute('src');
+    pArt.style.visibility = 'hidden';
+    pArt.style.opacity = '0';
+    pTitle.textContent = 'Select a track';
+    pArtist.textContent = 'vjvidly';
   }
 
   // Update Grid
