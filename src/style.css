@@ -41,10 +41,31 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  /* Darker at edges, transparent in center */
-  background: radial-gradient(circle at center, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0.6) 90%);
+  /* Dark responsive overlay */
+  background: rgba(0, 0, 0, 0.4);
+  /* Fallback */
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.85) 100%);
   z-index: -1;
   pointer-events: none;
+  animation: overlay-flicker 4s infinite alternate;
+}
+
+@keyframes overlay-flicker {
+  0% {
+    opacity: 0.9;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  55% {
+    opacity: 0.95;
+  }
+
+  100% {
+    opacity: 0.9;
+  }
 }
 
 a {
@@ -492,8 +513,9 @@ img.player-art-large[src=""] {
     flex-direction: row;
     align-items: center;
     border-radius: 0;
-    background: rgba(10, 10, 10, 0.95);
-    /* darker for contrast */
+    /* Use the lighter 'hover' background as default on mobile */
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(20px);
     padding: 0.75rem 1rem;
     gap: 1rem;
@@ -503,11 +525,18 @@ img.player-art-large[src=""] {
     border-right: none;
     box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
     height: 80px;
+    width: 100%;
+  }
+
+  /* Disable hover effect changes on mobile */
+  .player-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
   }
 
   .player-art-large {
-    width: 56px;
-    height: 56px;
+    width: 48px;
+    height: 48px;
     border-radius: 0;
     margin: 0;
   }
@@ -538,8 +567,23 @@ img.player-art-large[src=""] {
     font-size: 0.8rem;
   }
 
+  /* Restore Progress Bar on Mobile - Absolute at Top */
   .progress-container {
-    display: none;
+    display: flex;
+    position: absolute;
+    top: -1px;
+    /* Overlap border */
+    left: 0;
+    width: 100%;
+    height: 4px;
+    /* Slimmer */
+    margin: 0;
+    opacity: 1;
+  }
+
+  .waveform-bar {
+    min-height: 4px;
+    border-radius: 0;
   }
 
   .controls-large {
@@ -574,5 +618,7 @@ img.player-art-large[src=""] {
     color: white;
     opacity: 0.6;
     padding: 0.5rem;
+    margin-left: auto;
+    /* Push to end if needed, though flex gap handles it */
   }
 }
