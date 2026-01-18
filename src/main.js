@@ -1,0 +1,206 @@
+import './style.css'
+import { tracks } from './data.js'
+
+// State
+let currentTrackIndex = -1;
+let isPlaying = false;
+const audio = new Audio();
+
+// DOM Elements
+const gridEl = document.querySelector('#track-grid');
+const playerBar = document.querySelector('#player-bar');
+const pTitle = document.querySelector('#p-title');
+const pArtist = document.querySelector('#p-artist');
+const pArt = document.querySelector('#p-art');
+const btnPlay = document.querySelector('#btn-play');
+const btnNext = document.querySelector('#btn-next');
+const btnPrev = document.querySelector('#btn-prev');
+const btnClose = document.querySelector('#btn-close');
+const iconPlay = document.querySelector('#icon-play');
+const iconPause = document.querySelector('#icon-pause');
+const progressContainer = document.querySelector('#progress-container');
+
+// Initialize Grid
+function renderGrid() {
+  gridEl.innerHTML = tracks.map((track, index) => `
+    <button class="track-item ${index === currentTrackIndex && isPlaying ? 'playing' : ''}" data-index="${index}">
+      <div class="img-container">
+        <img src="${track.image}" alt="${track.title} cover" class="track-img" />
+      </div>
+      <div class="track-meta">
+        <div>
+          <div class="track-title">${track.title}</div>
+          <div class="track-artist">${track.artist}</div>
+        </div>
+        <div class="play-icon">
+          ${index === currentTrackIndex && isPlaying ? '<span style="font-size: 0.8rem">||</span>' : '▶'}
+        </div>
+      </div>
+    </button>
+  `).join('');
+
+  // Attach events
+  document.querySelectorAll('.track-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const index = parseInt(item.dataset.index);
+      if (currentTrackIndex === index) {
+        if (audio.paused) togglePlay();
+      } else {
+        playTrack(index);
+      }
+    });
+  });
+}
+
+// Generate Waveform UI
+// Seeded random number generator
+function seededRandom(seed) {
+  let x = Math.sin(seed++) * 10000;
+  return x - Math.floor(x);
+}
+
+// Generate Hash from String
+function getHash(str) {
+  let hash = 0;
+  if (str.length === 0) return hash;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32bit integer
+  }
+  return hash;
+}
+
+// Generate Waveform UI
+function renderWaveform(track) {
+  const bars = 40; // Fewer bars for wider feel
+  let html = '';
+
+  // Use track title as seed base, or random if no track
+  let seed = track ? getHash(track.title) : Math.random() * 1000;
+
+  for (let i = 0; i < bars; i++) {
+    // Generate seeded random height
+    const randomVal = track ? seededRandom(seed + i) : Math.random();
+
+    // Height between 20% and 100% to ensure no "invisible" bars
+    const height = 20 + randomVal * 80;
+    html += `<div class="waveform-bar" style="height: ${height}%" data-index="${i}"></div>`;
+  }
+  progressContainer.innerHTML = html;
+}
+
+// Player Logic
+function playTrack(index) {
+  if (index < 0 || index >= tracks.length) return;
+
+  currentTrackIndex = index;
+  const track = tracks[index];
+
+  // Update Audio
+  if (audio.src !== window.location.origin + track.audio) { // Only reload if new track
+    audio.src = track.audio;
+    renderWaveform(track); // Update waveform for new track
+  }
+
+  audio.play().then(() => {
+    isPlaying = true;
+    updateUI();
+  }).catch(e => console.error("Playback failed:", e));
+}
+
+function togglePlay() {
+  if (currentTrackIndex === -1) return;
+
+  if (audio.paused) {
+    audio.play();
+    isPlaying = true;
+  } else {
+    audio.pause();
+    isPlaying = false;
+  }
+  updateUI();
+}
+
+function nextTrack() {
+  let next = currentTrackIndex + 1;
+  if (next >= tracks.length) next = 0; // Loop
+  playTrack(next);
+}
+
+function prevTrack() {
+  let prev = currentTrackIndex - 1;
+  if (prev < 0) prev = tracks.length - 1; // Loop
+  playTrack(prev);
+}
+
+function closePlayer() {
+  audio.pause();
+  isPlaying = false;
+  currentTrackIndex = -1;
+  playerBar.classList.remove('active');
+  updateUI();
+}
+
+function updateUI() {
+  // Update Play Button
+  if (isPlaying) {
+    iconPlay.style.display = 'none';
+    iconPause.style.display = 'block';
+  } else {
+    iconPlay.style.display = 'block';
+    iconPause.style.display = 'none';
+  }
+
+  // Update Meta if track selected
+  if (currentTrackIndex !== -1) {
+    const track = tracks[currentTrackIndex];
+    pTitle.textContent = track.title;
+    pArtist.textContent = track.artist;
+    pArt.src = track.image;
+    playerBar.classList.add('active'); // Ensure active
+  }
+
+  // Update Grid
+  renderGrid();
+}
+
+// Waveform Progress Update
+audio.addEventListener('timeupdate', () => {
+  if (!audio.duration) return;
+  const percent = audio.currentTime / audio.duration;
+  const bars = document.querySelectorAll('.waveform-bar');
+  const activeCount = Math.floor(percent * bars.length);
+
+  bars.forEach((bar, i) => {
+    if (i <= activeCount) {
+      bar.classList.add('active');
+    } else {
+      bar.classList.remove('active');
+    }
+  });
+});
+
+audio.addEventListener('ended', nextTrack);
+
+// Click on waveform to seek
+progressContainer.addEventListener('click', (e) => {
+  if (currentTrackIndex === -1) return;
+  const rect = progressContainer.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const percent = x / rect.width;
+
+  if (audio.duration) {
+    audio.currentTime = percent * audio.duration;
+  }
+});
+
+// Controls Events
+btnPlay.addEventListener('click', togglePlay);
+btnNext.addEventListener('click', nextTrack);
+btnPrev.addEventListener('click', prevTrack);
+btnClose.addEventListener('click', closePlayer);
+
+// Init
+renderWaveform(null);
+renderGrid();
