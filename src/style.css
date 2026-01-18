@@ -402,21 +402,31 @@ img.player-art-large[src=""] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-secondary);
-  opacity: 0.6;
+  color: #fff;
+  opacity: 0.8;
   transition: all 0.2s;
   padding: 4px;
+  filter: none !important;
+  /* CRITICAL: No blur on logo */
+  text-shadow: none !important;
 }
 
 .sc-badge svg {
-  transform: scale(1.3);
-  /* Slightly larger */
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 
 .sc-badge:hover {
   opacity: 1;
-  color: white;
   transform: scale(1.1);
+}
+
+/* Specific small badge for track items and player bar */
+.player-card .sc-badge svg,
+.track-meta .sc-badge svg {
+  width: 16px;
+  height: 16px;
 }
 
 .player-artist {
