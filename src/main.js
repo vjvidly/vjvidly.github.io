@@ -24,6 +24,9 @@ const progressContainer = document.querySelector('#progress-container');
 function renderGrid() {
   gridEl.innerHTML = tracks.map((track, index) => `
     <div class="track-item ${index === currentTrackIndex && isPlaying ? 'playing' : ''}" data-index="${index}">
+      <div class="img-container">
+        <img src="${track.image}" alt="${track.title}" />
+      </div>
       <div class="track-meta">
         <div class="track-title">${track.title}</div>
         <div class="track-artist">${track.artist}</div>
@@ -225,3 +228,4 @@ btnClose.addEventListener('click', closePlayer);
 // Init
 renderWaveform(null);
 renderGrid();
+updateUI();
