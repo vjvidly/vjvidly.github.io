@@ -87,8 +87,14 @@ function renderWaveform(track) {
   let seed = track ? getHash(track.title) : Math.random() * 1000;
 
   for (let i = 0; i < bars; i++) {
+    // If no track, make it flat with very low height
+    if (!track) {
+      html += `<div class="waveform-bar" style="height: 5%" data-index="${i}"></div>`;
+      continue;
+    }
+
     // Generate seeded random height
-    const randomVal = track ? seededRandom(seed + i) : Math.random();
+    const randomVal = seededRandom(seed + i);
 
     // Height between 20% and 100% to ensure no "invisible" bars
     const height = 20 + randomVal * 80;
@@ -239,8 +245,10 @@ progressContainer.addEventListener('mousemove', (e) => {
   const currentIndex = Math.floor(currentPercent * bars.length);
 
   bars.forEach((bar, i) => {
-    // If hovering ahead of current time, highlight preview
-    if (i > currentIndex && i <= hoverIndex) {
+    // Show preview for the range between current and hover
+    const inRange = (i > Math.min(currentIndex, hoverIndex) && i <= Math.max(currentIndex, hoverIndex));
+
+    if (inRange) {
       bar.classList.add('preview');
     } else {
       bar.classList.remove('preview');

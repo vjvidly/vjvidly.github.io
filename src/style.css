@@ -510,37 +510,36 @@ img.player-art-large[src=""] {
     left: 0;
     width: 100%;
     height: auto;
-    z-index: 1000;
+    z-index: 20000;
+    /* Above noise/scanlines */
+    pointer-events: none;
   }
 
   .player-card {
     position: relative;
-    /* Fixed: Relative for inner absolute positioning */
+    display: flex;
     flex-direction: row;
     align-items: center;
     border-radius: 0;
-    /* User: non-hover looks too dark. Use bright hover bg permanently. */
-    background: rgba(255, 255, 255, 0.15) !important;
+    background: rgba(255, 255, 255, 0.18) !important;
     border-color: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(30px);
-    padding: 1.25rem 1rem 0.75rem;
-    /* Padding at top to make room for waveform */
-    gap: 1rem;
+    backdrop-filter: blur(40px);
+    padding: 1.5rem 1rem 0.5rem;
+    /* Room for waveform at top */
+    gap: 0.8rem;
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     border-bottom: none;
     border-left: none;
     border-right: none;
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
-    height: 90px;
-    /* Bit taller to fit waveform */
+    box-shadow: 0 -10px 50px rgba(0, 0, 0, 0.8);
+    height: 100px;
     width: 100%;
     flex-wrap: nowrap;
+    pointer-events: auto;
   }
 
-  /* Disable hover effect changes on mobile */
   .player-card:hover {
-    background: rgba(255, 255, 255, 0.15) !important;
-    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.18) !important;
   }
 
   .player-art-large {
@@ -556,7 +555,7 @@ img.player-art-large[src=""] {
     align-items: flex-start;
     justify-content: center;
     text-align: left;
-    gap: 0.1rem;
+    gap: 0;
     flex: 1;
     overflow: hidden;
   }
@@ -568,45 +567,43 @@ img.player-art-large[src=""] {
   }
 
   .player-title {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin: 0;
+    filter: blur(0.5px);
   }
 
   .player-artist {
-    font-size: 0.8rem;
-    opacity: 0.8;
+    font-size: 0.75rem;
+    opacity: 0.7;
+    filter: blur(0.4px);
   }
 
-  /* Restore Progress Bar on Mobile - Waveform at top */
+  /* Progress Bar on Mobile */
   .progress-container {
-    display: flex;
+    display: flex !important;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 30px;
-    /* Taller for waveform shape */
+    height: 40px;
     margin: 0;
     opacity: 1;
-    align-items: flex-start;
-    /* Align bars to top */
+    align-items: flex-end;
+    /* Bars grow UP */
     padding: 0 4px;
     pointer-events: auto;
     z-index: 10;
+    background: rgba(0, 0, 0, 0.1);
   }
 
   .waveform-bar {
     min-height: 2px;
     border-radius: 0;
-    margin-top: 0;
-    /* Reverse direction or just let it hang from top */
-    transform: scaleY(-1);
-    /* Hang down from top */
-    transform-origin: top;
+    filter: blur(0.2px);
   }
 
   .controls-large {
-    gap: 0.8rem;
+    gap: 0.6rem;
     margin: 0;
   }
 
@@ -618,12 +615,7 @@ img.player-art-large[src=""] {
     box-shadow: none;
   }
 
-  .btn-play-large svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  /* Hide prev/next on mobile to keep it simple */
+  /* Hide prev/next */
   #btn-prev,
   #btn-next {
     display: none;
@@ -636,8 +628,7 @@ img.player-art-large[src=""] {
     color: white;
     opacity: 0.7;
     padding: 0.5rem;
-    margin-left: 0.5rem;
+    margin-left: 0.2rem;
     align-self: center;
-    /* Center in the row */
   }
 }
