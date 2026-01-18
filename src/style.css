@@ -449,6 +449,11 @@ img.player-art-large[src=""] {
   filter: blur(0.2px);
 }
 
+.waveform-bar.preview {
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
 .waveform-bar.active {
   background: #fff;
   box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
@@ -509,34 +514,38 @@ img.player-art-large[src=""] {
   }
 
   .player-card {
-    position: static;
+    position: relative;
+    /* Fixed: Relative for inner absolute positioning */
     flex-direction: row;
     align-items: center;
     border-radius: 0;
-    /* Use the lighter 'hover' background as default on mobile */
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(20px);
-    padding: 0.75rem 1rem;
+    /* User: non-hover looks too dark. Use bright hover bg permanently. */
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(30px);
+    padding: 1.25rem 1rem 0.75rem;
+    /* Padding at top to make room for waveform */
     gap: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
     border-bottom: none;
     border-left: none;
     border-right: none;
-    box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
-    height: 80px;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
+    height: 90px;
+    /* Bit taller to fit waveform */
     width: 100%;
+    flex-wrap: nowrap;
   }
 
   /* Disable hover effect changes on mobile */
   .player-card:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(255, 255, 255, 0.4);
   }
 
   .player-art-large {
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     border-radius: 0;
     margin: 0;
   }
@@ -547,7 +556,7 @@ img.player-art-large[src=""] {
     align-items: flex-start;
     justify-content: center;
     text-align: left;
-    gap: 0.2rem;
+    gap: 0.1rem;
     flex: 1;
     overflow: hidden;
   }
@@ -559,56 +568,65 @@ img.player-art-large[src=""] {
   }
 
   .player-title {
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin: 0;
   }
 
   .player-artist {
     font-size: 0.8rem;
+    opacity: 0.8;
   }
 
-  /* Restore Progress Bar on Mobile - Absolute at Top */
+  /* Restore Progress Bar on Mobile - Waveform at top */
   .progress-container {
     display: flex;
     position: absolute;
-    top: -1px;
-    /* Overlap border */
+    top: 0;
     left: 0;
     width: 100%;
-    height: 4px;
-    /* Slimmer */
+    height: 30px;
+    /* Taller for waveform shape */
     margin: 0;
     opacity: 1;
+    align-items: flex-start;
+    /* Align bars to top */
+    padding: 0 4px;
+    pointer-events: auto;
+    z-index: 10;
   }
 
   .waveform-bar {
-    min-height: 4px;
+    min-height: 2px;
     border-radius: 0;
+    margin-top: 0;
+    /* Reverse direction or just let it hang from top */
+    transform: scaleY(-1);
+    /* Hang down from top */
+    transform-origin: top;
   }
 
   .controls-large {
-    gap: 1rem;
+    gap: 0.8rem;
     margin: 0;
   }
 
   .btn-play-large {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     background: white;
     color: black;
     box-shadow: none;
   }
 
   .btn-play-large svg {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
   }
 
-  /* Hide prev/next if space is tight, or keep small */
+  /* Hide prev/next on mobile to keep it simple */
   #btn-prev,
   #btn-next {
     display: none;
-    /* Simplify interface on mobile */
   }
 
   .btn-close {
@@ -616,9 +634,10 @@ img.player-art-large[src=""] {
     background: none;
     border: none;
     color: white;
-    opacity: 0.6;
+    opacity: 0.7;
     padding: 0.5rem;
-    margin-left: auto;
-    /* Push to end if needed, though flex gap handles it */
+    margin-left: 0.5rem;
+    align-self: center;
+    /* Center in the row */
   }
 }

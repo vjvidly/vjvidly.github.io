@@ -226,6 +226,33 @@ progressContainer.addEventListener('click', (e) => {
   }
 });
 
+// SoundCloud-style Hover Preview
+progressContainer.addEventListener('mousemove', (e) => {
+  if (currentTrackIndex === -1) return;
+  const rect = progressContainer.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const hoverPercent = x / rect.width;
+
+  const currentPercent = audio.duration ? (audio.currentTime / audio.duration) : 0;
+  const bars = document.querySelectorAll('.waveform-bar');
+  const hoverIndex = Math.floor(hoverPercent * bars.length);
+  const currentIndex = Math.floor(currentPercent * bars.length);
+
+  bars.forEach((bar, i) => {
+    // If hovering ahead of current time, highlight preview
+    if (i > currentIndex && i <= hoverIndex) {
+      bar.classList.add('preview');
+    } else {
+      bar.classList.remove('preview');
+    }
+  });
+});
+
+progressContainer.addEventListener('mouseleave', () => {
+  const bars = document.querySelectorAll('.waveform-bar');
+  bars.forEach(bar => bar.classList.remove('preview'));
+});
+
 // Controls Events
 btnPlay.addEventListener('click', togglePlay);
 btnNext.addEventListener('click', nextTrack);
