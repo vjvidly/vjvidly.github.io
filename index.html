@@ -38,47 +38,60 @@
         <img src="" alt="" class="player-art-large" id="p-art">
 
         <div class="player-info-large">
-          <span class="player-title" id="p-title">Select a track</span>
+          <div class="title-row">
+            <span class="player-title" id="p-title">Select a track</span>
+            <a id="player-sc-link" href="#" target="_blank" class="sc-badge" title="Open in SoundCloud"
+              style="display:none">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+          </div>
           <span class="player-artist" id="p-artist">vjvidly</span>
         </div>
-
-        <div class="progress-container" id="progress-container">
-          <!-- Waveform bars injected via JS -->
-        </div>
-
-        <div class="controls-large">
-          <a id="player-sc-link" href="#" target="_blank" class="ctrl-btn sc-link" title="Open in SoundCloud"
-            style="display:none">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-              <polyline points="15 3 21 3 21 9"></polyline>
-              <line x1="10" y1="14" x2="21" y2="3"></line>
-            </svg>
-          </a>
-          <button id="prev-large" class="ctrl-btn">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
-            </svg>
-          </button>
-          <button class="ctrl-btn btn-play-large" id="btn-play">
-            <svg id="icon-play" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-            <svg id="icon-pause" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" style="display:none">
-              <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-            </svg>
-          </button>
-          <button class="ctrl-btn" id="btn-next" title="Next">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
-            </svg>
-          </button>
-        </div>
-
-        <button class="btn-close" id="btn-close" style="display: none;">Close</button> <!-- Hidden on desktop -->
+        <a id="player-sc-link" href="#" target="_blank" class="ctrl-btn sc-link" title="Open in SoundCloud"
+          style="display:none">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </a>
       </div>
-    </aside>
+
+      <div class="progress-container" id="progress-container">
+        <!-- Waveform bars injected via JS -->
+      </div>
+
+      <div class="controls-large">
+
+        <button id="prev-large" class="ctrl-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
+          </svg>
+        </button>
+        <button class="ctrl-btn btn-play-large" id="btn-play">
+          <svg id="icon-play" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+          <svg id="icon-pause" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" style="display:none">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+          </svg>
+        </button>
+        <button class="ctrl-btn" id="btn-next" title="Next">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
+          </svg>
+        </button>
+      </div>
+
+      <button class="btn-close" id="btn-close" style="display: none;">Close</button> <!-- Hidden on desktop -->
+  </div>
+  </aside>
 
   </div>
   <script type="module" src="/src/main.js"></script>

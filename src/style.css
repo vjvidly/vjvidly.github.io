@@ -95,8 +95,8 @@ h1.logo {
   letter-spacing: -0.02em;
   margin-bottom: 0.5rem;
   line-height: 1;
-  /* Blur removed for Syne Mono */
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+  filter: blur(0.8px);
 }
 
 .bio {
@@ -106,91 +106,17 @@ h1.logo {
   margin-bottom: 1.5rem;
   letter-spacing: 0.05em;
   text-transform: lowercase;
-}
-
-.links {
-  display: flex;
-  gap: 2rem;
-  font-size: 0.9rem;
-  color: var(--text-primary);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.links a {
-  opacity: 0.7;
-  transition: opacity 0.2s;
-  border-bottom: 1px solid transparent;
-}
-
-.links a:hover {
-  opacity: 1;
-  border-bottom-color: white;
-}
-
-/* Track List (Vertical) */
-.track-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  width: 100%;
-}
-
-.track-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.25rem 1.5rem;
-  background: var(--panel-bg);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  border-radius: 0;
-  /* SHARP */
-  cursor: pointer;
-  transition: all 0.2s ease;
-  width: 100%;
-  margin-bottom: -1px;
-}
-
-.track-item:hover {
-  background: rgba(255, 255, 255, 0.15);
-  z-index: 1;
-  border-color: white;
-}
-
-.track-item.playing {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: white;
-  z-index: 2;
-}
-
-/* Unhide images in list view */
-.track-item .img-container {
-  display: block;
-  margin-right: 1.5rem;
-}
-
-.track-item img {
-  width: 48px;
-  height: 48px;
-  border-radius: 0;
-  /* SHARP */
-  object-fit: cover;
-  display: block;
-}
-
-.track-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+  filter: blur(0.4px);
 }
 
 .track-title {
   font-size: 1.2rem;
   font-weight: 400;
   letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  filter: blur(0.4px);
 }
 
 .track-artist {
@@ -347,16 +273,44 @@ img.player-art-large[src=""] {
   font-size: 1.5rem;
   font-weight: 500;
   display: block;
-  margin-bottom: 0.5rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   letter-spacing: 0.02em;
+  /* Request: Blur text */
+  filter: blur(0.5px);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.sc-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  opacity: 0.5;
+  transition: all 0.2s;
+  padding: 2px;
+}
+
+.sc-badge:hover {
+  opacity: 1;
+  color: white;
+  transform: scale(1.1);
 }
 
 .player-artist {
   font-size: 1rem;
   color: var(--text-secondary);
+  filter: blur(0.4px);
 }
 
 .progress-container {
@@ -368,6 +322,7 @@ img.player-art-large[src=""] {
   cursor: pointer;
   opacity: 0.8;
   transition: opacity 0.2s;
+  margin-top: 1rem;
 }
 
 .progress-container:hover {

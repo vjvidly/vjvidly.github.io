@@ -28,7 +28,14 @@ function renderGrid() {
         <img src="${track.image}" alt="${track.title}" />
       </div>
       <div class="track-meta">
-        <div class="track-title">${track.title}</div>
+        <div class="track-title">
+          ${track.title}
+          ${track.url ? `
+            <a href="${track.url}" target="_blank" class="sc-badge" title="Open in SoundCloud" onclick="event.stopPropagation()">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          ` : ''}
+        </div>
         <div class="track-artist">${track.artist}</div>
         <div class="play-icon">
           ${index === currentTrackIndex && isPlaying ? '||' : '▶'}
