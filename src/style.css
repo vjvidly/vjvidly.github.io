@@ -165,9 +165,19 @@ h1.logo {
   z-index: 2;
 }
 
-/* Hide images in list view */
+/* Unhide images in list view */
 .track-item .img-container {
-  display: none;
+  display: block;
+  margin-right: 1.5rem;
+}
+
+.track-item img {
+  width: 48px;
+  height: 48px;
+  border-radius: 0;
+  /* SHARP */
+  object-fit: cover;
+  display: block;
 }
 
 .track-meta {
@@ -212,6 +222,24 @@ h1.logo {
 .track-item.playing .play-icon {
   opacity: 1;
   transform: scale(1);
+}
+
+/* SoundCloud Link in Player */
+.sc-link {
+  font-family: var(--font-main);
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 0;
+}
+
+.sc-link:hover {
+  text-decoration: underline;
 }
 
 /* Noise Overlay */

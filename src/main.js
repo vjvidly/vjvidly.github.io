@@ -151,6 +151,8 @@ function updateUI() {
   }
 
   // Update Meta if track selected
+  const scLink = document.getElementById('player-sc-link');
+
   if (currentTrackIndex !== -1) {
     const track = tracks[currentTrackIndex];
     pTitle.textContent = track.title;
@@ -158,6 +160,16 @@ function updateUI() {
     pArt.src = track.image;
     pArt.style.visibility = 'visible';
     pArt.style.opacity = '1';
+
+    // Update SC Link
+    if (track.url) {
+      scLink.href = track.url;
+      scLink.style.display = 'flex';
+      scLink.style.visibility = 'visible';
+    } else {
+      scLink.style.display = 'none';
+    }
+
   } else {
     // Hide art if no track
     pArt.removeAttribute('src');
@@ -165,6 +177,9 @@ function updateUI() {
     pArt.style.opacity = '0';
     pTitle.textContent = 'Select a track';
     pArtist.textContent = 'vjvidly';
+
+    // Hide SC Link
+    if (scLink) scLink.style.visibility = 'hidden';
   }
 
   // Update Grid
