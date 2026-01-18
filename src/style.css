@@ -440,10 +440,11 @@ img.player-art-large[src=""] {
 
 .waveform-bar {
   flex: 1;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  /* Darker base for better contrast */
   border-radius: 0;
   /* SHARP */
-  transition: background 0.15s;
+  transition: background 0.1s, opacity 0.1s;
   pointer-events: none;
   min-height: 4px;
   filter: blur(0.2px);
@@ -532,15 +533,16 @@ img.player-art-large[src=""] {
     background: rgba(255, 255, 255, 0.18) !important;
     border-color: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(40px);
-    padding: 1.5rem 1rem 0.5rem;
-    /* Room for waveform at top */
+    padding: 3rem 1rem 0.5rem;
+    /* Increased top padding to clear waveform */
     gap: 0.8rem;
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     border-bottom: none;
     border-left: none;
     border-right: none;
     box-shadow: 0 -10px 50px rgba(0, 0, 0, 0.8);
-    height: 100px;
+    height: 120px;
+    /* Taller to fit padding/waveform */
     width: 100vw !important;
     max-width: 100vw;
     left: 0;
@@ -590,22 +592,23 @@ img.player-art-large[src=""] {
     filter: blur(0.4px);
   }
 
-  /* Progress Bar on Mobile */
+  /* Progress Bar on Mobile - Ensure it stays at very top and doesn't push content */
   .progress-container {
     display: flex !important;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 40px;
+    height: 45px;
+    /* Slightly taller */
     margin: 0;
     opacity: 1;
     align-items: flex-end;
-    /* Bars grow UP */
+    /* Bars grow UP from the 45px mark */
     padding: 0 4px;
     pointer-events: auto;
     z-index: 10;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.15);
   }
 
   .waveform-bar {

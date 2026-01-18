@@ -202,24 +202,6 @@ function updateUI() {
   renderGrid();
 }
 
-// Waveform Progress Update
-audio.addEventListener('timeupdate', () => {
-  if (!audio.duration) return;
-  const percent = audio.currentTime / audio.duration;
-  const bars = document.querySelectorAll('.waveform-bar');
-  const activeCount = Math.floor(percent * bars.length);
-
-  bars.forEach((bar, i) => {
-    if (i <= activeCount) {
-      bar.classList.add('active');
-    } else {
-      bar.classList.remove('active');
-    }
-  });
-});
-
-audio.addEventListener('ended', nextTrack);
-
 // Click on waveform to seek
 progressContainer.addEventListener('click', (e) => {
   if (currentTrackIndex === -1) return;
@@ -229,8 +211,37 @@ progressContainer.addEventListener('click', (e) => {
 
   if (audio.duration) {
     audio.currentTime = percent * audio.duration;
+    // Force immediate UI update for bars
+    updateBars(percent);
+    // Clear preview immediately on click
+    const bars = document.querySelectorAll('.waveform-bar');
+    bars.forEach(bar => bar.classList.remove('preview'));
   }
 });
+
+function updateBars(percent) {
+  const bars = document.querySelectorAll('.waveform-bar');
+  const activeCount = Math.floor(percent * bars.length);
+  bars.forEach((bar, i) => {
+    if (i <= activeCount) {
+      bar.classList.add('active');
+    } else {
+      bar.classList.remove('active');
+    }
+  });
+}
+
+// Global update listener
+audio.addEventListener('timeupdate', () => {
+  if (!audio.duration) return;
+  const percent = audio.currentTime / audio.duration;
+  updateBars(percent);
+});
+
+audio.addEventListener('ended', nextTrack);
+
+// Click on waveform to seek
+// (Combined above into the simplified updateBars)
 
 // SoundCloud-style Hover Preview
 progressContainer.addEventListener('mousemove', (e) => {
