@@ -406,9 +406,8 @@ img.player-art-large[src=""] {
   opacity: 0.8;
   transition: all 0.2s;
   padding: 4px;
-  filter: none !important;
-  /* CRITICAL: No blur on logo */
-  text-shadow: none !important;
+  filter: blur(var(--text-blur));
+  text-shadow: var(--glow-shadow);
 }
 
 .sc-badge svg {
