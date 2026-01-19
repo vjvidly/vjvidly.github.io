@@ -32,7 +32,7 @@ function renderGrid() {
           ${track.title}
           ${track.url ? `
             <a href="${track.url}" target="_blank" class="sc-badge" title="Open in SoundCloud" onclick="event.stopPropagation()">
-              <img src="/soundcloud.png" alt="SoundCloud" />
+              <img src="/soundcloud.svg" alt="SoundCloud" />
             </a>
           ` : ''}
         </div>
