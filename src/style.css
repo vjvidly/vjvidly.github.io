@@ -404,15 +404,16 @@ img.player-art-large[src=""] {
   justify-content: center;
   opacity: 0.8;
   transition: all 0.2s;
-  padding: 6px;
-  filter: blur(var(--text-blur));
-  text-shadow: var(--glow-shadow);
+  padding: 4px;
 }
 
 .sc-badge img {
-  width: 28px;
-  height: auto;
+  height: 22px;
+  /* Fixed height for consistent baseline */
+  width: auto;
   display: block;
+  filter: blur(0.4px);
+  /* Tactical blur for detail preservation */
 }
 
 .sc-badge:hover {
@@ -423,7 +424,7 @@ img.player-art-large[src=""] {
 /* Specific size for track items and player bar */
 .player-card .sc-badge img,
 .track-meta .sc-badge img {
-  width: 20px;
+  height: 16px;
 }
 
 .player-artist {
