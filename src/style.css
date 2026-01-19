@@ -412,8 +412,10 @@ img.player-art-large[src=""] {
   /* Fixed height for consistent baseline */
   width: auto;
   display: block;
-  filter: blur(0.4px);
-  /* Tactical blur for detail preservation */
+  filter: blur(var(--text-blur));
+  /* Restored blur */
+  image-rendering: pixelated;
+  /* Aesthetic choice for low-res PNGs */
 }
 
 .sc-badge:hover {
