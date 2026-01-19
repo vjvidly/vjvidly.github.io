@@ -12,8 +12,8 @@
   --spacing-unit: 1rem;
 
   /* Consistency Tokens */
-  --glow-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-  --text-blur: 0.5px;
+  --glow-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+  --text-blur: 0.8px;
   --card-blur: 40px;
 }
 
@@ -405,14 +405,14 @@ img.player-art-large[src=""] {
   color: #fff;
   opacity: 0.8;
   transition: all 0.2s;
-  padding: 4px;
+  padding: 6px;
   filter: blur(var(--text-blur));
   text-shadow: var(--glow-shadow);
 }
 
 .sc-badge svg {
-  width: 20px;
-  height: 20px;
+  width: 28px;
+  height: 28px;
   display: block;
 }
 
@@ -421,11 +421,11 @@ img.player-art-large[src=""] {
   transform: scale(1.1);
 }
 
-/* Specific small badge for track items and player bar */
+/* Specific size for track items and player bar */
 .player-card .sc-badge svg,
 .track-meta .sc-badge svg {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
 }
 
 .player-artist {
