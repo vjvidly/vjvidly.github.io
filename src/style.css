@@ -137,23 +137,28 @@ h1.logo {
 
 .links {
   display: flex;
-  gap: 2rem;
-  font-size: 0.9rem;
-  color: var(--text-primary);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  gap: 1.5rem;
+  align-items: center;
+  margin-top: 1rem;
 }
 
 .links a {
-  opacity: 0.7;
-  transition: opacity 0.2s;
-  border-bottom: 1px solid transparent;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.links a img {
+  height: 10px;
+  /* Quarter size of previous 40px/64px scale */
+  width: auto;
+  display: block;
+  filter: blur(2px);
+  /* Blurrier for aesthetic */
 }
 
 .links a:hover {
   opacity: 1;
-  border-bottom-color: white;
+  transform: scale(1.1);
 }
 
 /* Track List (Vertical) */
@@ -408,14 +413,14 @@ img.player-art-large[src=""] {
 }
 
 .sc-badge img {
-  height: 22px;
-  /* Fixed height for consistent baseline */
+  height: 16px;
+  /* Functional size */
   width: auto;
   display: block;
-  filter: blur(var(--text-blur));
-  /* Restored blur */
-  image-rendering: pixelated;
-  /* Aesthetic choice for low-res PNGs */
+  filter: blur(0.2px);
+  /* Less blurry for clarity */
+  image-rendering: auto;
+  /* Smoother for functional icons */
 }
 
 .sc-badge:hover {
@@ -426,7 +431,7 @@ img.player-art-large[src=""] {
 /* Specific size for track items and player bar */
 .player-card .sc-badge img,
 .track-meta .sc-badge img {
-  height: 16px;
+  height: 14px;
 }
 
 .player-artist {
