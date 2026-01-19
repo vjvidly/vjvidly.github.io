@@ -402,7 +402,6 @@ img.player-art-large[src=""] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
   opacity: 0.8;
   transition: all 0.2s;
   padding: 6px;
@@ -410,9 +409,9 @@ img.player-art-large[src=""] {
   text-shadow: var(--glow-shadow);
 }
 
-.sc-badge svg {
+.sc-badge img {
   width: 28px;
-  height: 28px;
+  height: auto;
   display: block;
 }
 
@@ -422,10 +421,9 @@ img.player-art-large[src=""] {
 }
 
 /* Specific size for track items and player bar */
-.player-card .sc-badge svg,
-.track-meta .sc-badge svg {
+.player-card .sc-badge img,
+.track-meta .sc-badge img {
   width: 20px;
-  height: 20px;
 }
 
 .player-artist {
